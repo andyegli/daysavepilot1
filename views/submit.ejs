@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit URL</title>
+</head>
+<body>
+  <h1>Submit URL</h1>
+  <form action="/submit" method="POST">
+    <label for="url">URL:</label>
+    <input type="text" name="url" id="url" required><br>
+
+    <label for="tags">Tags (comma-separated):</label>
+    <input type="text" name="tags" id="tags"><br>
+
+    <label for="comment">Comment:</label>
+    <textarea name="comment" id="comment"></textarea><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

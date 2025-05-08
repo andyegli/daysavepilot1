@@ -1,0 +1,13 @@
+Secure Data Transmission Overview
+
+Data to Transmit:
+	•	appGuid: Unique identifier for the application.
+	•	userId: Identifier for the user.
+	•	location: Latitude and longitude coordinates.
+	•	localTime: Client’s local time in ISO 8601 format.
+	•	url: Current page URL.
+
+Security Measures:
+	•	Encryption: Use AES-GCM symmetric encryption with a shared secret key.
+	•	Timestamp: Prevent replay attacks by ensuring requests are timely.
+	•	Nonce: Unique identifier for each request to prevent duplication.

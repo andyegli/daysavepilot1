@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS shared_links;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS urls;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS oauth_tokens;
+DROP TABLE IF EXISTS oauth_providers;
+DROP TABLE IF EXISTS oauth_users;
+DROP TABLE IF EXISTS oauth_clients;
+DROP TABLE IF EXISTS oauth_authorization_codes;
+DROP TABLE IF EXISTS oauth_access_tokens;
+DROP TABLE IF EXISTS oauth_refresh_tokens;
+DROP TABLE IF EXISTS oauth_scopes;
+DROP TABLE IF EXISTS oauth_jwt_bearer_tokens;
+DROP TABLE IF EXISTS oauth_jwt_bearer_token_audiences;
+DROP TABLE IF EXISTS oauth_jwt_bearer_token_audience_permissions;

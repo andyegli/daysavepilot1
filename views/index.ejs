@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Data Collection</title>
+</head>
+<body>
+    <h1>Secure Data Collection</h1>
+    <form id="dataForm">
+        <input type="hidden" id="appGuid" value="your-app-guid">
+        <input type="hidden" id="userId" value="user-123">
+        <input type="hidden" id="location" value='<%= JSON.stringify(location) %>'>
+        <input type="hidden" id="localTime">
+        <input type="hidden" id="url" value="<%= request.originalUrl %>">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('localTime').value = new Date().toISOString();
+
+        document.getElementById('dataForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const payload = {
+                appGuid: document.getElementById('appGuid').value,
+                userId: document.getElementById('userId').value,
+                location: JSON.parse(document.getElementById('location').value),
+                localTime: document.getElementById('localTime').value,
+                url: document.getElementById('url').value,
+                timestamp: Math.floor(Date.now() / 1000),
+                nonce: crypto.randomUUID()
+            };
+
+            const encoder = new TextEncoder();
+            const keyMaterial = await window.crypto.subtle.importKey(
+                'raw',
+                encoder.encode('your-shared-secret-key'),
+                { name: 'PBKDF2' },
+                false,
+                ['deriveKey']
+            );
+
+            const key = await window.crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: encoder.encode('salt'),
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                true,
+                ['encrypt']
+            );
+
+            const iv = window.crypto.getRandomValues(new Uint8Array(12));
+            const encrypted = await window.crypto.subtle.encrypt(
+                {
+                    name: 'AES-GCM',
+                    iv: iv
+                },
+                key,
+                encoder.encode(JSON.stringify(payload))
+            );
+
+            const combined = new Uint8Array(iv.byteLength + encrypted.byteLength);
+            combined.set(iv, 0);
+            combined.set(new Uint8Array(encrypted), iv.byteLength);
+
+            const base64Data = btoa(String.fromCharCode(...combined));
+
+            fetch('/secure-endpoint', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: base64Data })
+            }).then(response => response.text())
+              .then(data => alert(data))
+              .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "appGuid": "xyz",
+    "userId": "abc123",
+    "location": { "lat": 1.234, "lng": 5.678 },
+    "localTime": "2025-05-08T12:34:56Z",
+    "url": "https://example.com",
+    "timestamp": 1715178896,   // Unix time
+    "nonce": "random-string-123"
+  }
