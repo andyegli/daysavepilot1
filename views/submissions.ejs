@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>My Submissions</title></head>
+<body>
+  <h1>Your Submitted URLs</h1>
+  <% if (urls.length === 0) { %>
+    <p>No submissions yet.</p>
+  <% } else { %>
+    <ul>
+    <% urls.forEach(url => { %>
+      <li>
+        <strong><%= url.url %></strong><br>
+        Tags: <%= url.tags || 'None' %><br>
+        Comment: <%= url.comment || 'No comment' %><br>
+        Submitted: <%= new Date(url.local_time).toLocaleString() %>
+      </li><hr>
+    <% }) %>
+    </ul>
+  <% } %>
+  <a href="/submit">Back to Submit Form</a>
+</body>
+</html>
