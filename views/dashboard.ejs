@@ -1,0 +1,420 @@
+<!-- views/dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'DaySave.app - Dashboard' }) %>
+  <style>
+    body {
+      background-color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: var(--sidebar-width);
+      height: calc(100vh - 56px);
+      background-color: white;
+      border-right: 1px solid #e5e7eb;
+      overflow-y: auto;
+      z-index: 1020;
+      transition: all 0.3s ease;
+    }
+    
+    :root {
+      --sidebar-width: 280px;
+    }
+    
+    .sidebar-menu {
+      list-style: none;
+      padding: 1.5rem 0;
+      margin: 0;
+    }
+    
+    .sidebar-item {
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      transition: all 0.2s ease;
+    }
+    
+    .sidebar-item:hover {
+      background-color: #f8f9fa;
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+    
+    .sidebar-item.active {
+      background-color: #f0f9ff;
+      color: var(--primary-color);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .sidebar-icon {
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .content-header {
+      margin-bottom: 2rem;
+    }
+    
+    .content-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-subtitle {
+      color: #6c757d;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      background-color: white;
+      border-bottom: 1px solid #f0f0f0;
+      font-weight: 600;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .saved-item {
+      border-left: 4px solid var(--primary-color);
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .saved-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .source-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    
+    .item-source {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .item-date {
+      color: #adb5bd;
+      font-size: 0.85rem;
+      margin-left: auto;
+    }
+    
+    .item-content {
+      margin-bottom: 1rem;
+    }
+    
+    .item-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .item-tag {
+      background: #edf2fb;
+      color: var(--primary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .item-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .item-action {
+      color: #6c757d;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .item-action:hover {
+      color: var(--primary-color);
+    }
+    
+    .item-action i {
+      margin-right: 5px;
+    }
+    
+    .stats-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    
+    .stats-title {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stats-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stats-change {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .stats-positive {
+      color: var(--primary-color);
+    }
+    
+    .stats-negative {
+      color: #ef4444;
+    }
+    
+    @media (max-width: 991.98px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- User object for the navbar -->
+  <% 
+  const user = {
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    avatar: '/images/profile.png'
+  };
+  %>
+
+  <!-- Top Navigation -->
+  <%- include('partials/navbar', { active: 'dashboard', user: user }) %>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item active">
+        <i class="fas fa-th-large sidebar-icon"></i> Dashboard
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-stream sidebar-icon"></i> My Stream
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-bookmark sidebar-icon"></i> Saved Items
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-tag sidebar-icon"></i> Tags
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-history sidebar-icon"></i> History
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-cog sidebar-icon"></i> Settings
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-plug sidebar-icon"></i> Integrations
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <div class="content-header">
+      <h1 class="content-title">Dashboard</h1>
+      <p class="page-subtitle">Welcome back, <%= user.name.split(' ')[0] %>! Here's your knowledge summary.</p>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <% 
+      const stats = [
+        { title: 'Total Saved Items', value: '247', change: { text: '12% from last week', positive: true } },
+        { title: 'Top Source', value: 'Twitter', change: { text: '42% of your content' } },
+        { title: 'Most Used Tag', value: 'AI', change: { text: 'Used 53 times' } },
+        { title: 'Revisited Items', value: '64%', change: { text: '8% from last month', positive: true } }
+      ];
+      %>
+      
+      <% stats.forEach(stat => { %>
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+          <div class="stats-card">
+            <div class="stats-title"><%= stat.title %></div>
+            <div class="stats-value"><%= stat.value %></div>
+            <div class="stats-change <%= stat.change.positive ? 'stats-positive' : '' %>">
+              <% if (stat.change.positive) { %>
+                <i class="fas fa-arrow-up me-1"></i>
+              <% } %>
+              <%= stat.change.text %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    
+    <!-- Recent Saves -->
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Recent Saves</span>
+        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+      </div>
+      <div class="card-body">
+        <% 
+        const savedItems = [
+          {
+            source: 'Twitter',
+            iconSrc: '/images/twitter.png',
+            date: 'Today, 10:23 AM',
+            title: '"The key to success in AI isn\'t just more data, but better curation of your training sets."',
+            content: 'A thread by @AIResearcher on how data quality often trumps quantity when training new models. The insights about dataset bias were particularly valuable.',
+            tags: ['AI', 'MachineLearning', 'DataScience']
+          },
+          {
+            source: 'YouTube',
+            iconSrc: '/images/youtube.png',
+            date: 'Yesterday, 4:45 PM',
+            title: '5 Essential Web Development Tools You Need to Know in 2025',
+            content: 'This video covers the latest tools that every web developer should be familiar with, including new frameworks and productivity enhancers.',
+            tags: ['WebDev', 'Programming', 'Tutorial']
+          },
+          {
+            source: 'LinkedIn',
+            iconSrc: '/images/linkedin.png',
+            date: 'May 10, 2025',
+            title: 'How remote work transformed our company culture and boosted productivity by 37%',
+            content: 'A case study from Tech Innovations Inc. on their transition to a fully remote workforce and the unexpected benefits they discovered along the way.',
+            tags: ['RemoteWork', 'Productivity', 'WorkCulture']
+          }
+        ];
+        %>
+        
+        <% savedItems.forEach(item => { %>
+          <div class="saved-item">
+            <div class="item-source">
+              <img src="<%= item.iconSrc %>" alt="<%= item.source %>" class="source-icon">
+              <%= item.source %>
+              <span class="item-date"><%= item.date %></span>
+            </div>
+            <div class="item-content">
+              <div class="item-title"><%= item.title %></div>
+              <p><%= item.content %></p>
+            </div>
+            <div class="item-tags">
+              <% item.tags.forEach(tag => { %>
+                <span class="item-tag"><%= tag %></span>
+              <% }); %>
+            </div>
+            <div class="item-actions">
+              <div class="item-action">
+                <i class="far fa-edit"></i> Edit
+              </div>
+              <div class="item-action">
+                <i class="far fa-share-square"></i> Share
+              </div>
+              <div class="item-action">
+                <i class="far fa-trash-alt"></i> Delete
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+    
+    <!-- Popular Tags -->
+    <div class="card">
+      <div class="card-header">
+        Popular Tags
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap gap-2">
+          <% 
+          const popularTags = [
+            { name: 'AI', count: 53 },
+            { name: 'Programming', count: 42 },
+            { name: 'WebDev', count: 38 },
+            { name: 'Career', count: 29 },
+            { name: 'Productivity', count: 25 },
+            { name: 'Design', count: 24 },
+            { name: 'RemoteWork', count: 22 },
+            { name: 'DataScience', count: 19 },
+            { name: 'Tutorial', count: 17 },
+            { name: 'MachineLearning', count: 16 },
+            { name: 'Finance', count: 14 },
+            { name: 'Startups', count: 12 }
+          ];
+          %>
+          
+          <% popularTags.forEach(tag => { %>
+            <div class="item-tag"><%= tag.name %> <span class="badge bg-light text-dark ms-1"><%= tag.count %></span></div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Toggle sidebar on mobile
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

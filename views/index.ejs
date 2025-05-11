@@ -1,80 +1,221 @@
+<!-- views/index.ejs -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Secure Data Collection</title>
+  <%- include('partials/head', { title: 'DaySave.app - Save Your Social Knowledge' }) %>
+  <style>
+    .hero-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+      text-align: center;
+    }
+    
+    .hero-heading {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      font-size: 3rem;
+    }
+    
+    .hero-subheading {
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      font-size: 1.5rem;
+      color: #4a4a4a;
+    }
+    
+    .cta-button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .social-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 3rem 0;
+      gap: 2rem;
+    }
+    
+    .social-logo {
+      width: 60px;
+      height: 60px;
+      filter: grayscale(0.3);
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+    
+    .social-logo:hover {
+      filter: grayscale(0);
+      transform: scale(1.15);
+      opacity: 1;
+    }
+    
+    .knowledge-stream {
+      background-color: #f9f9f9;
+      padding: 4rem 0;
+      margin-top: 2rem;
+    }
+    
+    .stream-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--accent-color);
+      transition: all 0.3s ease;
+    }
+    
+    .stream-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .stream-source {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .stream-content {
+      margin-top: 0.8rem;
+    }
+    
+    .stream-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .stream-tag {
+      background: #edf2fb;
+      color: var(--primary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
-    <h1>Secure Data Collection</h1>
-    <form id="dataForm">
-        <input type="hidden" id="appGuid" value="your-app-guid">
-        <input type="hidden" id="userId" value="user-123">
-        <input type="hidden" id="location" value='<%= JSON.stringify(location) %>'>
-        <input type="hidden" id="localTime">
-        <input type="hidden" id="url" value="<%= request.originalUrl %>">
-        <button type="submit">Submit</button>
-    </form>
+  <!-- Navigation -->
+  <%- include('partials/navbar', { active: 'home' }) %>
 
-    <script>
-        document.getElementById('localTime').value = new Date().toISOString();
+  <!-- Hero Section -->
+  <section class="hero-section" style="margin-top: 70px;">
+    <div class="container">
+      <div class="text-center mb-4">
+        <img src="/images/logo.png" alt="DaySave Logo" class="mb-3" style="width: 150px; height: 150px;">
+      </div>
+      <h1 class="hero-heading">DaySave: Make Browsing Count</h1>
+      <p class="hero-subheading">Save the Best. Skip the Rest.</p>
+      <a href="/register" class="btn cta-button">Try Now - It's Free</a>
+      
+      <!-- Social Media Logos -->
+      <div class="social-logos">
+        <% const socialPlatforms = ['Facebook', 'Twitter', 'Instagram', 'LinkedIn', 'TikTok', 'YouTube', 'Reddit', 'Pinterest', 'Discord', 'Telegram']; %>
+        <% socialPlatforms.forEach(platform => { %>
+          <img src="/images/<%= platform.toLowerCase() %>.png" alt="<%= platform %>" class="social-logo">
+        <% }); %>
+      </div>
+    </div>
+  </section>
 
-        document.getElementById('dataForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const payload = {
-                appGuid: document.getElementById('appGuid').value,
-                userId: document.getElementById('userId').value,
-                location: JSON.parse(document.getElementById('location').value),
-                localTime: document.getElementById('localTime').value,
-                url: document.getElementById('url').value,
-                timestamp: Math.floor(Date.now() / 1000),
-                nonce: crypto.randomUUID()
-            };
+  <!-- Knowledge Stream Section -->
+  <section class="knowledge-stream">
+    <div class="container">
+      <h2 class="text-center mb-5">Your Knowledge Stream</h2>
+      <p class="text-center mb-5 fw-light fs-5">Clip it. Keep it. Know it.</p>
+      
+      <div class="row">
+        <!-- Stream Items -->
+        <% 
+        const streamItems = [
+          {
+            source: 'Twitter',
+            icon: 'fa-twitter',
+            color: 'text-primary',
+            content: '"The key to success in AI isn\'t just more data, but better curation of your training sets."',
+            tags: ['AI', 'MachineLearning', 'DataScience']
+          },
+          {
+            source: 'YouTube',
+            icon: 'fa-youtube',
+            color: 'text-danger',
+            content: '5 Essential Web Development Tools You Need to Know in 2025',
+            tags: ['WebDev', 'Programming', 'Tutorial']
+          },
+          {
+            source: 'LinkedIn',
+            icon: 'fa-linkedin',
+            color: 'text-primary',
+            content: 'How remote work transformed our company culture and boosted productivity by 37%',
+            tags: ['RemoteWork', 'Productivity', 'WorkCulture']
+          },
+          {
+            source: 'Reddit',
+            icon: 'fa-reddit',
+            color: 'text-danger',
+            content: 'I\'ve been tracking my finances with this simple spreadsheet for 5 years - here\'s what I learned',
+            tags: ['PersonalFinance', 'Budgeting', 'LifeHack']
+          },
+          {
+            source: 'Facebook',
+            icon: 'fa-facebook',
+            color: 'text-primary',
+            content: 'The 30-day mindfulness challenge that changed my approach to stress management',
+            tags: ['Mindfulness', 'MentalHealth', 'Wellness']
+          },
+          {
+            source: 'Instagram',
+            icon: 'fa-instagram',
+            color: 'text-danger',
+            content: 'My minimalist home office setup that maximizes productivity and aesthetics',
+            tags: ['HomeOffice', 'Minimalism', 'WorkFromHome']
+          }
+        ];
+        %>
+        
+        <% streamItems.forEach(item => { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="stream-item">
+              <div class="stream-source">
+                <i class="fab <%= item.icon %> <%= item.color %> me-2"></i><%= item.source %>
+              </div>
+              <div class="stream-content">
+                <%= item.content %>
+              </div>
+              <div class="stream-tags">
+                <% item.tags.forEach(tag => { %>
+                  <span class="stream-tag"><%= tag %></span>
+                <% }); %>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+      
+      <div class="text-center mt-4">
+        <a href="/register" class="btn cta-button">Start Saving Your Knowledge</a>
+      </div>
+    </div>
+  </section>
 
-            const encoder = new TextEncoder();
-            const keyMaterial = await window.crypto.subtle.importKey(
-                'raw',
-                encoder.encode('your-shared-secret-key'),
-                { name: 'PBKDF2' },
-                false,
-                ['deriveKey']
-            );
+  <!-- Footer -->
+  <%- include('partials/footer') %>
 
-            const key = await window.crypto.subtle.deriveKey(
-                {
-                    name: 'PBKDF2',
-                    salt: encoder.encode('salt'),
-                    iterations: 100000,
-                    hash: 'SHA-256'
-                },
-                keyMaterial,
-                { name: 'AES-GCM', length: 256 },
-                true,
-                ['encrypt']
-            );
-
-            const iv = window.crypto.getRandomValues(new Uint8Array(12));
-            const encrypted = await window.crypto.subtle.encrypt(
-                {
-                    name: 'AES-GCM',
-                    iv: iv
-                },
-                key,
-                encoder.encode(JSON.stringify(payload))
-            );
-
-            const combined = new Uint8Array(iv.byteLength + encrypted.byteLength);
-            combined.set(iv, 0);
-            combined.set(new Uint8Array(encrypted), iv.byteLength);
-
-            const base64Data = btoa(String.fromCharCode(...combined));
-
-            fetch('/secure-endpoint', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ data: base64Data })
-            }).then(response => response.text())
-              .then(data => alert(data))
-              .catch(error => console.error('Error:', error));
-        });
-    </script>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

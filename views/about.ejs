@@ -1,0 +1,305 @@
+<!-- views/about.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'DaySave.app - About Us' }) %>
+  <style>
+    body {
+      background-color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .main-content {
+      padding: 3rem 2rem;
+      flex: 1;
+    }
+    
+    .content-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .content-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .page-subtitle {
+      color: #6c757d;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    
+    .about-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      padding: 2rem;
+    }
+    
+    .about-section h2 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .about-section p {
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
+      color: #4b5563;
+    }
+    
+    .team-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      padding: 2rem;
+    }
+    
+    .team-section h2 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    
+    .team-card {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      object-fit: cover;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .team-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .team-position {
+      color: var(--primary-color);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .team-bio {
+      font-size: 0.95rem;
+      color: #4b5563;
+    }
+    
+    .values-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      padding: 2rem;
+    }
+    
+    .values-section h2 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    
+    .value-item {
+      margin-bottom: 1.5rem;
+    }
+    
+    .value-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .value-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .value-text {
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+    
+    .cta-section {
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .cta-title {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .cta-text {
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- User object for the navbar -->
+  <% 
+  const user = {
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    avatar: '/images/profile.png'
+  };
+  %>
+
+  <!-- Top Navigation -->
+  <%- include('partials/navbar', { active: 'about', user: user }) %>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-header">
+      <h1 class="content-title">About DaySave.app</h1>
+      <p class="page-subtitle">
+        DaySave is a personal knowledge management platform that helps you capture, organize, and revisit valuable content from around the web.
+      </p>
+    </div>
+    
+    <div class="container">
+      <!-- Our Story Section -->
+      <div class="about-section">
+        <h2>Our Story</h2>
+        <p>
+          DaySave began in early 2024 when our founder, frustrated with losing track of valuable content across social media platforms, decided to build a better solution for knowledge management. What started as a personal project quickly grew into a platform used by thousands of professionals, students, and lifelong learners.
+        </p>
+        <p>
+          We believe that in today's information-rich world, the ability to effectively curate and revisit knowledge is a crucial skill. Our mission is to help you build your personal library of insights and ideas, transforming scattered social media interactions into a structured knowledge base.
+        </p>
+        <p>
+          Today, DaySave integrates with all major social platforms and offers powerful organization tools through tags, collections, and AI-powered recommendations. We're constantly evolving, with new features and integrations being added regularly based on user feedback.
+        </p>
+      </div>
+      
+      <!-- Team Section -->
+      <div class="team-section">
+        <h2>Our Team</h2>
+        <div class="row">
+          <% 
+          const teamMembers = [
+            {
+              name: 'Sarah Chen',
+              position: 'Founder & CEO',
+              bio: 'Former product lead at a major tech company, Sarah founded DaySave to solve her own knowledge management challenges.',
+              avatar: '/images/profile.png'
+            },
+            {
+              name: 'Marcus Johnson',
+              position: 'CTO',
+              bio: 'With 15+ years of experience in web development, Marcus leads our technical team and infrastructure.',
+              avatar: '/images/profile.png'
+            },
+            {
+              name: 'Priya Sharma',
+              position: 'Head of Design',
+              bio: 'Priya brings her passion for intuitive UX and clean design to create a seamless experience for our users.',
+              avatar: '/images/profile.png'
+            },
+            {
+              name: 'David Kim',
+              position: 'Head of Marketing',
+              bio: 'David helps spread the word about DaySave and builds our community of knowledge enthusiasts.',
+              avatar: '/images/profile.png'
+            }
+          ];
+          %>
+          
+          <% teamMembers.forEach(member => { %>
+            <div class="col-md-3 col-sm-6">
+              <div class="team-card">
+                <img src="<%= member.avatar %>" alt="<%= member.name %>" class="team-avatar">
+                <div class="team-name"><%= member.name %></div>
+                <div class="team-position"><%= member.position %></div>
+                <div class="team-bio"><%= member.bio %></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      
+      <!-- Our Values Section -->
+      <div class="values-section">
+        <h2>Our Values</h2>
+        <div class="row">
+          <% 
+          const values = [
+            {
+              icon: 'fas fa-brain',
+              title: 'Knowledge First',
+              text: 'We believe in the power of continuous learning and the value of organized knowledge.'
+            },
+            {
+              icon: 'fas fa-user-shield',
+              title: 'Privacy & Security',
+              text: 'Your data belongs to you. We prioritize security and never sell your information.'
+            },
+            {
+              icon: 'fas fa-puzzle-piece',
+              title: 'Seamless Integration',
+              text: 'DaySave works with the tools you already use, fitting into your existing workflow.'
+            },
+            {
+              icon: 'fas fa-lightbulb',
+              title: 'Continuous Innovation',
+              text: 'We're always working to improve and expand our platform based on user feedback.'
+            }
+          ];
+          %>
+          
+          <% values.forEach(value => { %>
+            <div class="col-md-3 col-sm-6">
+              <div class="value-item">
+                <div class="value-icon">
+                  <i class="<%= value.icon %>"></i>
+                </div>
+                <div class="value-title"><%= value.title %></div>
+                <div class="value-text"><%= value.text %></div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <h2 class="cta-title">Start Saving Your Knowledge Today</h2>
+        <p class="cta-text">
+          Join thousands of professionals who use DaySave to build their personal knowledge library.
+        </p>
+        <a href="/register" class="btn btn-primary btn-lg">Sign Up for Free</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

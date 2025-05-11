@@ -1,3 +1,43 @@
+daysavepilot1/
+├── app.js                  // Main application file
+├── package.json            // Project dependencies
+├── config/                 // Configuration files
+│   └── database.js         // Database connection settings
+├── models/                 // Database models
+│   ├── User.js             // User model
+│   ├── SavedItem.js        // Saved content model
+│   └── Tag.js              // Tags model
+├── routes/                 // Application routes
+│   ├── index.js            // Main routes
+│   ├── auth.js             // Authentication routes
+│   ├── account.js          // Account management routes
+│   └── api.js              // API endpoints
+├── controllers/            // Route controllers
+│   ├── homeController.js   // Homepage and landing
+│   ├── authController.js   // Login/registration
+│   ├── accountController.js // User account settings
+│   └── dashboardController.js // Dashboard content
+├── middlewares/            // Custom middleware
+│   └── auth.js             // Authentication middleware
+├── public/                 // Static files
+│   ├── css/                // Stylesheets
+│   ├── js/                 // Client-side scripts
+│   └── images/             // Images including logo
+└── views/                  // EJS templates
+    ├── partials/           // Reusable template parts
+    │   ├── head.ejs        // Common head content
+    │   ├── navbar.ejs      // Navigation bar
+    │   └── footer.ejs      // Footer content
+    ├── index.ejs           // Homepage
+    ├── login.ejs           // Login page
+    ├── register.ejs        // Registration page
+    ├── dashboard.ejs       // User dashboard
+    ├── account.ejs         // Account settings
+    ├── privacy.ejs         // Privacy policy
+    └── terms.ejs           // Terms of service
+
+
+
 	•	iOS App: Encrypts and sends data securely to the server.
 	•	EJS Web Page: Collects client data, encrypts it using Web Crypto API, and sends it to the server.
 	•	Express Server: Decrypts incoming data, validates timestamp and nonce, and processes the payload.

@@ -1,0 +1,74 @@
+<!-- views/partials/navbar.ejs -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="DaySave Logo" class="me-2" style="width: 30px; height: 30px;"> DaySave.app</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link <%= active === 'home' ? 'active' : '' %>" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownWeb" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Web
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownWeb">
+              <li><a class="dropdown-item" href="/login">WebApp</a></li>
+              <li><a class="dropdown-item" href="/login">Chrome</a></li>
+              <li><a class="dropdown-item" href="/login">Edge</a></li>
+              <li><a class="dropdown-item" href="/login">Firefox</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">iPhone</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">iPad</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Android</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Telegram</a>
+          </li>
+          
+          <% if (typeof user !== 'undefined' && user) { %>
+            <li class="nav-item dropdown mx-2">
+              <a class="nav-link position-relative" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  3
+                </span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                <li><a class="dropdown-item" href="#">New saves from Twitter</a></li>
+                <li><a class="dropdown-item" href="#">Content tagged "AI" was shared</a></li>
+                <li><a class="dropdown-item" href="#">Weekly summary ready</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">View all notifications</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="/images/profile.png" alt="User" class="avatar-sm me-2">
+                <span class="d-none d-md-inline"><%= user.name %></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="/account"><i class="fas fa-user me-2"></i>My Account</a></li>
+                <li><a class="dropdown-item" href="/settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                <li><a class="dropdown-item" href="/help"><i class="fas fa-question-circle me-2"></i>Help</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+              </ul>
+            </li>
+          <% } else { %>
+            <li class="nav-item ms-2">
+              <a class="btn btn-outline-primary <%= active === 'login' ? 'active' : '' %>" href="/login">Login</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>

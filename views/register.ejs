@@ -1,0 +1,217 @@
+<!-- views/register.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'DaySave.app - Register' }) %>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .register-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .register-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      padding: 2.5rem;
+    }
+    
+    .register-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .register-logo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 1rem;
+    }
+    
+    .register-form .form-control {
+      border-radius: 50px;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #e0e0e0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .register-form .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.25);
+    }
+    
+    .register-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50px;
+      padding: 0.8rem;
+      font-weight: 600;
+      width: 100%;
+      border: none;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .register-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+    }
+    
+    .social-register {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    
+    .social-register-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+      color: #333;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .social-register-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .facebook { background-color: #3b5998; color: white; }
+    .google { background-color: #db4437; color: white; }
+    .twitter { background-color: #1da1f2; color: white; }
+    .apple { background-color: #000000; color: white; }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .login-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .tagline {
+      text-align: center;
+      margin-top: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <%- include('partials/navbar', { active: 'register' }) %>
+
+  <!-- Register Section -->
+  <section class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <img src="/images/logo.png" alt="DaySave Logo" class="register-logo">
+        <h2>Join DaySave</h2>
+        <p class="text-muted">Save the Best. Skip the Rest.</p>
+      </div>
+      
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+      
+      <form class="register-form" id="registerForm" action="/register" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" required>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" value="1" id="termsCheck" name="termsCheck" required>
+          <label class="form-check-label" for="termsCheck">
+            I agree to the <a href="/terms" class="text-primary">Terms of Service</a> and <a href="/privacy" class="text-primary">Privacy Policy</a>
+          </label>
+        </div>
+        <button type="submit" class="btn register-btn">Create Account</button>
+      </form>
+      
+      <div class="tagline mt-4">
+        <p>Clip it. Keep it. Know it.</p>
+      </div>
+      
+      <div class="social-register">
+        <a href="/auth/facebook" class="social-register-btn facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="/auth/google" class="social-register-btn google">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="/auth/twitter" class="social-register-btn twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="/auth/apple" class="social-register-btn apple">
+          <i class="fab fa-apple"></i>
+        </a>
+      </div>
+      
+      <div class="login-link">
+        <p>Already have an account? <a href="/login">Sign in</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,26 +1,56 @@
 {
-  "dependencies": {
-    "axios": "^1.9.0",
-    "body-parser": "^2.2.0",
-    "dotenv": "^16.5.0",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "express-session": "^1.18.1",
-    "mysql2": "^3.14.1",
-    "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
-  },
-  "name": "daysavepilot1",
-  "version": "1.0.0",
-  "description": "A pilot to ckeck API auth",
-  "main": "server.js",
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "daysave-app",
+    "version": "1.0.0",
+    "description": "A web app to save and organize content from social media",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/andyegli/daysavepilot1.git"
+    },
+    "keywords": [
+        "social",
+        "bookmarking",
+        "knowledge",
+        "save",
+        "nodejs",
+        "express",
+        "mongodb"
+    ],
+    "author": "Andy Egli",
+    "license": "MIT",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "compression": "^1.8.0",
+        "connect-flash": "^0.1.1",
+        "dotenv": "^16.3.1",
+        "ejs": "^3.1.10",
+        "express": "^4.21.2",
+        "express-mysql-session": "^3.0.3",
+        "express-session": "^1.18.1",
+        "express-validator": "^7.0.1",
+        "helmet": "^7.2.0",
+        "method-override": "^3.0.0",
+        "morgan": "^1.10.0",
+        "mysql2": "^3.14.1",
+        "nodemailer": "^6.9.7",
+        "passport": "^0.7.0",
+        "passport-apple": "^2.0.2",
+        "passport-facebook": "^3.0.0",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
+        "passport-twitter": "^0.1.5",
+        "sequelize": "^6.37.7"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10"
+    },
+    "bugs": {
+        "url": "https://github.com/andyegli/daysavepilot1/issues"
+    },
+    "homepage": "https://github.com/andyegli/daysavepilot1#readme"
 }

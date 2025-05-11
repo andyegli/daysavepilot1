@@ -1,0 +1,230 @@
+<!-- views/terms.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'DaySave.app - Terms of Service' }) %>
+  <style>
+    .terms-container {
+      padding: 3rem 0;
+    }
+    
+    .terms-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .terms-title {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .terms-date {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .terms-section {
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .section-content p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    
+    .section-content ul {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <%- include('partials/navbar', { active: 'terms' }) %>
+
+  <!-- Terms of Service Content -->
+  <div class="terms-container">
+    <div class="container">
+      <div class="terms-header">
+        <h1 class="terms-title">Terms of Service</h1>
+        <p class="terms-date">Last Updated: <%= new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></p>
+      </div>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <!-- Introduction -->
+          <div class="terms-section">
+            <h2 class="section-title">1. Introduction</h2>
+            <div class="section-content">
+              <p>Welcome to DaySave.app ("Company", "we", "our", "us")! As you have just clicked to accept these Terms of Service ("Terms", "Terms of Service"), please read these Terms of Service carefully before using our web applications, mobile applications, browser extensions, and other offerings (collectively, the "Services").</p>
+              <p>These Terms of Service govern your access to and use of the Services. By accessing or using any part of the Services, you agree to be bound by these Terms. If you do not agree to all the terms and conditions of these Terms of Service, then you may not access the Services.</p>
+            </div>
+          </div>
+          
+          <!-- Definitions -->
+          <div class="terms-section">
+            <h2 class="section-title">2. Definitions</h2>
+            <div class="section-content">
+              <p>Throughout these Terms of Service, the following terms will be used with the following meanings:</p>
+              <ul>
+                <li><strong>"Account"</strong> means a unique account created for you to access our Services.</li>
+                <li><strong>"Content"</strong> means any information, text, graphics, photos, or other materials uploaded, downloaded, or appearing on the Services.</li>
+                <li><strong>"User Content"</strong> means Content that you submit to the Services.</li>
+                <li><strong>"DaySave Content"</strong> means Content that we create and make available on the Services.</li>
+                <li><strong>"Third-Party Content"</strong> means Content that originates from parties other than DaySave.app or its users, which is made available in connection with the Services.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Accounts -->
+          <div class="terms-section">
+            <h2 class="section-title">3. Accounts</h2>
+            <div class="section-content">
+              <p>When you create an account with us, you must provide us with information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Services.</p>
+              <p>You are responsible for safeguarding the password that you use to access the Services and for any activities or actions under your password. You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+              <p>You may not use as a username the name of another person or entity that is not lawfully available for use, a name or trademark that is subject to any rights of another person or entity without appropriate authorization, or a name that is otherwise offensive, vulgar, or obscene.</p>
+            </div>
+          </div>
+          
+          <!-- Intellectual Property -->
+          <div class="terms-section">
+            <h2 class="section-title">4. Intellectual Property</h2>
+            <div class="section-content">
+              <h3 class="h5 mt-4 mb-3">Service Content, Software, and Trademarks</h3>
+              <p>The Services and their original content (excluding User Content), features, and functionality are and will remain the exclusive property of DaySave.app and its licensors. The Services are protected by copyright, trademark, and other laws of both the United States and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of DaySave.app.</p>
+              
+              <h3 class="h5 mt-4 mb-3">User Content</h3>
+              <p>You retain your rights to any User Content you submit, post, or display on or through the Services. By submitting, posting, or displaying User Content on or through the Services, you grant us a worldwide, non-exclusive, royalty-free license (with the right to sublicense) to use, copy, reproduce, process, adapt, modify, publish, transmit, display and distribute such User Content in any and all media or distribution methods now known or later developed.</p>
+              <p>You represent and warrant that: (i) the User Content is yours (you own it) or you have the right to use it and grant us the rights and license as provided in these Terms, and (ii) the posting of your User Content on or through the Services does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person.</p>
+            </div>
+          </div>
+          
+          <!-- Acceptable Use -->
+          <div class="terms-section">
+            <h2 class="section-title">5. Acceptable Use</h2>
+            <div class="section-content">
+              <p>You agree not to use the Services:</p>
+              <ul>
+                <li>In any way that violates any applicable national or international law or regulation.</li>
+                <li>To transmit, or procure the sending of, any advertising or promotional material, including any "junk mail", "chain letter," "spam," or any other similar solicitation.</li>
+                <li>To impersonate or attempt to impersonate the Company, a Company employee, another user, or any other person or entity.</li>
+                <li>In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity.</li>
+                <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Services, or which, as determined by us, may harm the Company or users of the Services or expose them to liability.</li>
+              </ul>
+              
+              <p>Additionally, you agree not to:</p>
+              <ul>
+                <li>Use the Services in any manner that could disable, overburden, damage, or impair the Services or interfere with any other party's use of the Services.</li>
+                <li>Use any robot, spider, or other automatic device, process, or means to access the Services for any purpose, including monitoring or copying any of the material on the Services.</li>
+                <li>Use any manual process to monitor or copy any of the material on the Services or for any other unauthorized purpose without our prior written consent.</li>
+                <li>Use any device, software, or routine that interferes with the proper working of the Services.</li>
+                <li>Introduce any viruses, trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful.</li>
+                <li>Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the Services, the server on which the Services are stored, or any server, computer, or database connected to the Services.</li>
+                <li>Attack the Services via a denial-of-service attack or a distributed denial-of-service attack.</li>
+                <li>Otherwise attempt to interfere with the proper working of the Services.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Third-Party Services and Content -->
+          <div class="terms-section">
+            <h2 class="section-title">6. Third-Party Services and Content</h2>
+            <div class="section-content">
+              <p>The Services may contain links to third-party websites or services that are not owned or controlled by DaySave.app. DaySave.app has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You further acknowledge and agree that DaySave.app shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or services available on or through any such websites or services.</p>
+              <p>We strongly advise you to read the terms and conditions and privacy policies of any third-party websites or services that you visit or use.</p>
+            </div>
+          </div>
+          
+          <!-- User Content -->
+          <div class="terms-section">
+            <h2 class="section-title">7. User Content</h2>
+            <div class="section-content">
+              <p>Our Services allow you to post, link, store, share, and otherwise make available certain information, text, graphics, videos, or other material. You are responsible for the content you post to the Service, including its legality, reliability, and appropriateness.</p>
+              <p>By posting content to the Service, you grant us the right to use, modify, publicly perform, publicly display, reproduce, and distribute such content on and through the Service. You retain any and all of your rights to any content you submit, post, or display on or through the Service and you are responsible for protecting those rights. You agree that this license includes the right for us to make your content available to other users of the Service, who may also use your content subject to these Terms.</p>
+              <p>You represent and warrant that: (i) the content is yours (you own it) or you have the right to use it and grant us the rights and license as provided in these Terms, and (ii) that the posting of your content on or through the Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person or entity.</p>
+            </div>
+          </div>
+          
+          <!-- Termination -->
+          <div class="terms-section">
+            <h2 class="section-title">8. Termination</h2>
+            <div class="section-content">
+              <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+              <p>Upon termination, your right to use the Services will immediately cease. If you wish to terminate your account, you may simply discontinue using the Services, or you may notify us that you wish to delete your account.</p>
+              <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+            </div>
+          </div>
+          
+          <!-- Indemnification -->
+          <div class="terms-section">
+            <h2 class="section-title">9. Indemnification</h2>
+            <div class="section-content">
+              <p>You agree to defend, indemnify, and hold harmless DaySave.app, its parent, subsidiaries, affiliates, and all of their respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys' fees and expenses, made by any third party due to or arising out of: (1) your use of the Services; (2) breach of these Terms of Service; (3) any breach of your representations and warranties set forth in these Terms of Service; (4) your violation of the rights of a third party, including but not limited to intellectual property rights; or (5) any harmful act toward any other user of the Services. Notwithstanding the foregoing, we reserve the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate, at your expense, with our defense of such claims. We will use reasonable efforts to notify you of any such claim, action, or proceeding which is subject to this indemnification upon becoming aware of it.</p>
+            </div>
+          </div>
+          
+          <!-- Limitation of Liability -->
+          <div class="terms-section">
+            <h2 class="section-title">10. Limitation of Liability</h2>
+            <div class="section-content">
+              <p>To the maximum extent permitted by applicable law, in no event shall DaySave.app, its affiliates, agents, directors, employees, suppliers, or licensors be liable for any indirect, punitive, incidental, special, consequential or exemplary damages, including without limitation damages for loss of profits, goodwill, use, data or other intangible losses, that result from the use of, or inability to use, the Services.</p>
+              <p>To the maximum extent permitted by applicable law, DaySave.app assumes no liability or responsibility for any (i) errors, mistakes, or inaccuracies of content; (ii) personal injury or property damage, of any nature whatsoever, resulting from your access to or use of our Services; (iii) any unauthorized access to or use of our secure servers and/or any and all personal information stored therein; (iv) any interruption or cessation of transmission to or from the Services; (v) any bugs, viruses, trojan horses, or the like that may be transmitted to or through our Services by any third party; (vi) any errors or omissions in any content or for any loss or damage incurred as a result of the use of any content posted, emailed, transmitted, or otherwise made available through the Services; and/or (vii) user content or the defamatory, offensive, or illegal conduct of any third party.</p>
+            </div>
+          </div>
+          
+          <!-- Disclaimer -->
+          <div class="terms-section">
+            <h2 class="section-title">11. Disclaimer</h2>
+            <div class="section-content">
+              <p>YOUR USE OF THE SERVICE IS AT YOUR SOLE RISK. THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. THE SERVICE IS PROVIDED WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT OR COURSE OF PERFORMANCE.</p>
+              <p>DAYSAVE.APP, ITS SUBSIDIARIES, AFFILIATES, AND ITS LICENSORS DO NOT WARRANT THAT A) THE SERVICE WILL FUNCTION UNINTERRUPTED, SECURE OR AVAILABLE AT ANY PARTICULAR TIME OR LOCATION; B) ANY ERRORS OR DEFECTS WILL BE CORRECTED; C) THE SERVICE IS FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS; OR D) THE RESULTS OF USING THE SERVICE WILL MEET YOUR REQUIREMENTS.</p>
+            </div>
+          </div>
+          
+          <!-- Governing Law -->
+          <div class="terms-section">
+            <h2 class="section-title">12. Governing Law</h2>
+            <div class="section-content">
+              <p>These Terms shall be governed and construed in accordance with the laws of the State of California, United States, without regard to its conflict of law provisions.</p>
+              <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Services, and supersede and replace any prior agreements we might have between us regarding the Services.</p>
+            </div>
+          </div>
+          
+          <!-- Changes to Terms -->
+          <div class="terms-section">
+            <h2 class="section-title">13. Changes to Terms</h2>
+            <div class="section-content">
+              <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+              <p>By continuing to access or use our Services after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Services.</p>
+            </div>
+          </div>
+          
+          <!-- Contact Us -->
+          <div class="terms-section">
+            <h2 class="section-title">14. Contact Us</h2>
+            <div class="section-content">
+              <p>If you have any questions about these Terms, please contact us:</p>
+              <ul>
+                <li>By email: legal@daysave.app</li>
+                <li>By visiting the contact page on our website: <a href="/contact">Contact Page</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

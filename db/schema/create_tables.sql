@@ -1,6 +1,6 @@
 -- Create the database if it doesn't already exist
-CREATE DATABASE IF NOT EXISTS daysavepilot1;
-USE daysavepilot1;
+CREATE DATABASE IF NOT EXISTS daysave;
+USE daysave;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
@@ -9,6 +9,10 @@ CREATE TABLE IF NOT EXISTS users (
   oauth_id VARCHAR(100),
   email VARCHAR(100),
   name VARCHAR(100),
+  password VARCHAR(255),
+  profile_picture VARCHAR(255),
+  resetPasswordToken VARCHAR(255),
+  resetPasswordExpires DATETIME;
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

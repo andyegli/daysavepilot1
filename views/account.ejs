@@ -1,0 +1,613 @@
+<!-- views/account.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'DaySave.app - Account Settings' }) %>
+  <style>
+    body {
+      background-color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: var(--sidebar-width);
+      height: calc(100vh - 56px);
+      background-color: white;
+      border-right: 1px solid #e5e7eb;
+      overflow-y: auto;
+      z-index: 1020;
+      transition: all 0.3s ease;
+    }
+    
+    :root {
+      --sidebar-width: 280px;
+    }
+    
+    .sidebar-menu {
+      list-style: none;
+      padding: 1.5rem 0;
+      margin: 0;
+    }
+    
+    .sidebar-item {
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      transition: all 0.2s ease;
+    }
+    
+    .sidebar-item:hover {
+      background-color: #f8f9fa;
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+    
+    .sidebar-item.active {
+      background-color: #f0f9ff;
+      color: var(--primary-color);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .sidebar-icon {
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .content-header {
+      margin-bottom: 2rem;
+    }
+    
+    .content-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-subtitle {
+      color: #6c757d;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-header {
+      background-color: white;
+      border-bottom: 1px solid #f0f0f0;
+      font-weight: 600;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .form-control {
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.25);
+    }
+    
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .save-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .save-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+    }
+    
+    .avatar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .avatar-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 4px solid white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .avatar-upload-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 500;
+      border: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .avatar-upload-btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    .nav-tabs {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .nav-tabs .nav-item .nav-link {
+      border: none;
+      color: #6c757d;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+    }
+    
+    .nav-tabs .nav-item .nav-link.active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+    }
+    
+    .tab-content {
+      padding: 2rem 0;
+    }
+    
+    @media (max-width: 991.98px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- User object for the navbar -->
+  <% 
+  const user = {
+    name: 'Alex Johnson',
+    email: 'alex@example.com',
+    avatar: '/images/profile.png'
+  };
+  %>
+
+  <!-- Top Navigation -->
+  <%- include('partials/navbar', { active: 'account', user: user }) %>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <i class="fas fa-th-large sidebar-icon"></i> Dashboard
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-stream sidebar-icon"></i> My Stream
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-bookmark sidebar-icon"></i> Saved Items
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-tag sidebar-icon"></i> Tags
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-history sidebar-icon"></i> History
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-cog sidebar-icon"></i> Settings
+      </li>
+      <li class="sidebar-item active">
+        <i class="fas fa-user sidebar-icon"></i> Account
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <div class="content-header">
+      <h1 class="content-title">Account Settings</h1>
+      <p class="page-subtitle">Manage your profile and account preferences</p>
+    </div>
+    
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    
+    <!-- Account Tabs -->
+    <ul class="nav nav-tabs" id="accountTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Profile</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="preferences-tab" data-bs-toggle="tab" data-bs-target="#preferences" type="button" role="tab" aria-controls="preferences" aria-selected="false">Preferences</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab" aria-controls="notifications" aria-selected="false">Notifications</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Security</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="integrations-tab" data-bs-toggle="tab" data-bs-target="#integrations" type="button" role="tab" aria-controls="integrations" aria-selected="false">Integrations</button>
+      </li>
+    </ul>
+    
+    <div class="tab-content" id="accountTabsContent">
+      <!-- Profile Tab -->
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="avatar-container">
+                <img src="/images/profile.png" alt="Alex Johnson" class="avatar-large">
+                <button class="avatar-upload-btn">
+                  <i class="fas fa-camera me-2"></i> Change Photo
+                </button>
+                <input type="file" id="avatarUpload" accept="image/*" class="d-none">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">Profile Information</div>
+              <div class="card-body">
+                <form id="profileForm" action="/account/profile" method="POST">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" value="Alex" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" name="lastName" value="Johnson" required>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" value="alex@example.com" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea class="form-control" id="bio" name="bio" rows="3">Product designer and knowledge enthusiast. I save interesting articles about design, AI, and productivity.</textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" value="San Francisco, CA">
+                  </div>
+                  <div class="mb-3">
+                    <label for="website" class="form-label">Website</label>
+                    <input type="url" class="form-control" id="website" name="website" value="https://alexjohnson.design">
+                  </div>
+                  <button type="submit" class="btn save-btn">Save Changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Preferences Tab -->
+      <div class="tab-pane fade" id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
+        <div class="card">
+          <div class="card-header">Content Preferences</div>
+          <div class="card-body">
+            <form id="preferencesForm" action="/account/preferences" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Theme</label>
+                <div class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="theme" id="themeLight" value="light" checked>
+                    <label class="form-check-label" for="themeLight">
+                      Light
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="theme" id="themeDark" value="dark">
+                    <label class="form-check-label" for="themeDark">
+                      Dark
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="theme" id="themeSystem" value="system">
+                    <label class="form-check-label" for="themeSystem">
+                      System Default
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Default View</label>
+                <div class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="defaultView" id="viewAll" value="all" checked>
+                    <label class="form-check-label" for="viewAll">
+                      All Items
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="defaultView" id="viewTags" value="tags">
+                    <label class="form-check-label" for="viewTags">
+                      By Tags
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="defaultView" id="viewSources" value="sources">
+                    <label class="form-check-label" for="viewSources">
+                      By Sources
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="itemsPerPage" class="form-label">Items Per Page</label>
+                <select class="form-select" id="itemsPerPage" name="itemsPerPage">
+                  <option value="10">10</option>
+                  <option value="20" selected>20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Tag Display</label>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="showTagCounts" name="showTagCounts" checked>
+                  <label class="form-check-label" for="showTagCounts">Show tag counts</label>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="sortTagsAlpha" name="sortTagsAlpha">
+                  <label class="form-check-label" for="sortTagsAlpha">Sort tags alphabetically (default is by frequency)</label>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn save-btn">Save Preferences</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Notifications Tab -->
+      <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+        <div class="card">
+          <div class="card-header">Notification Settings</div>
+          <div class="card-body">
+            <form id="notificationsForm" action="/account/notifications" method="POST">
+              <h5 class="mb-3">Email Notifications</h5>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="emailNewSaves" name="emailNewSaves" checked>
+                <label class="form-check-label" for="emailNewSaves">New saves summary (weekly)</label>
+              </div>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="emailDigest" name="emailDigest" checked>
+                <label class="form-check-label" for="emailDigest">Content digest based on your interests</label>
+              </div>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="emailAccount" name="emailAccount" checked>
+                <label class="form-check-label" for="emailAccount">Account updates and security alerts</label>
+              </div>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="emailProduct" name="emailProduct">
+                <label class="form-check-label" for="emailProduct">Product updates and new features</label>
+              </div>
+              
+              <div class="form-check form-switch mb-4">
+                <input class="form-check-input" type="checkbox" id="emailMarketing" name="emailMarketing">
+                <label class="form-check-label" for="emailMarketing">Marketing emails and special offers</label>
+              </div>
+              
+              <h5 class="mb-3">Push Notifications</h5>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="pushNewSaves" name="pushNewSaves" checked>
+                <label class="form-check-label" for="pushNewSaves">When content is automatically saved from your feeds</label>
+              </div>
+              
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="pushRecommendations" name="pushRecommendations">
+                <label class="form-check-label" for="pushRecommendations">Content recommendations based on your saves</label>
+              </div>
+              
+              <div class="form-check form-switch mb-4">
+                <input class="form-check-input" type="checkbox" id="pushReminders" name="pushReminders" checked>
+                <label class="form-check-label" for="pushReminders">Reminders to revisit saved content</label>
+              </div>
+              
+              <button type="submit" class="btn save-btn">Save Notification Settings</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Security Tab -->
+      <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+        <div class="card mb-4">
+          <div class="card-header">Change Password</div>
+          <div class="card-body">
+            <form id="passwordForm" action="/account/password" method="POST">
+              <div class="mb-3">
+                <label for="currentPassword" class="form-label">Current Password</label>
+                <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+              </div>
+              <div class="mb-3">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+              </div>
+              <button type="submit" class="btn save-btn">Update Password</button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">Security Settings</div>
+          <div class="card-body">
+            <form id="securityForm" action="/account/security" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Two-Factor Authentication</label>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="enable2FA" name="enable2FA">
+                    <label class="form-check-label" for="enable2FA">Enable Two-Factor Authentication</label>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary btn-sm" disabled>Set Up</button>
+                </div>
+                <small class="text-muted">Enhance your account security by requiring a second verification step when logging in.</small>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Session Management</label>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="autoLogout" name="autoLogout" checked>
+                  <label class="form-check-label" for="autoLogout">Automatically log out after 30 days of inactivity</label>
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                  <button type="button" class="btn btn-outline-danger">Log Out of All Other Devices</button>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn save-btn">Save Security Settings</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Integrations Tab -->
+      <div class="tab-pane fade" id="integrations" role="tabpanel" aria-labelledby="integrations-tab">
+        <div class="card">
+          <div class="card-header">Connected Accounts</div>
+          <div class="card-body">
+            <% 
+            const socialAccounts = [
+              { name: 'Twitter', connected: true, username: '@alexjohnsondesign' },
+              { name: 'Facebook', connected: false },
+              { name: 'LinkedIn', connected: true, username: 'Alex Johnson' },
+              { name: 'Google', connected: true, username: 'alex@example.com' },
+              { name: 'Instagram', connected: false },
+              { name: 'Pinterest', connected: false },
+              { name: 'YouTube', connected: false },
+              { name: 'Reddit', connected: true, username: 'designalexj' }
+            ];
+            %>
+            
+            <% socialAccounts.forEach(account => { %>
+              <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                <div class="d-flex align-items-center">
+                  <img src="/images/<%= account.name.toLowerCase() %>.png" alt="<%= account.name %>" width="32" height="32" class="me-3">
+                  <div>
+                    <h6 class="mb-0"><%= account.name %></h6>
+                    <% if (account.connected) { %>
+                      <span class="text-muted"><%= account.username %></span>
+                    <% } %>
+                  </div>
+                </div>
+                <div>
+                  <% if (account.connected) { %>
+                    <button class="btn btn-outline-danger btn-sm">Disconnect</button>
+                  <% } else { %>
+                    <button class="btn btn-outline-primary btn-sm">Connect</button>
+                  <% } %>
+                </div>
+              </div>
+            <% }); %>
+            
+            <p class="mt-4 text-muted">Connect your social media accounts to automatically save content from your feeds.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Toggle sidebar on mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+          document.getElementById('sidebar').classList.toggle('show');
+        });
+      }
+      
+      // Avatar upload
+      document.querySelector('.avatar-upload-btn').addEventListener('click', function() {
+        document.getElementById('avatarUpload').click();
+      });
+      
+      // Password validation
+      const passwordForm = document.getElementById('passwordForm');
+      if (passwordForm) {
+        passwordForm.addEventListener('submit', function(e) {
+          const newPassword = document.getElementById('newPassword').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+          
+          if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
